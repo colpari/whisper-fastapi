@@ -390,8 +390,8 @@ async def translateapi(
     }
 
 
-@app.post("/v1/audio/transcriptions", response_model=Union[JsonResult, str])
-@app.post("/v1/audio/translations", response_model=Union[JsonResult, str])
+@app.post("/v1/audio/transcriptions", response_model=JsonResult)
+@app.post("/v1/audio/translations", response_model=JsonResult)
 async def transcription(
     request: Request,
     file: UploadFile = File(...),
