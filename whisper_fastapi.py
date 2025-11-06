@@ -201,10 +201,12 @@ def build_json_result(
     info: TranscriptionInfo,
 ) -> JsonResult:
     segments = [i for i in generator]
+    dictData = dataclasses.asdict(info)
+    #print("dictData: {}".format(dictData))
     return JsonResult(
         text="\n".join(i.text for i in segments),
         segments=segments,
-        **dataclasses.asdict(info),
+        **dictData,
     )
 
 
@@ -446,7 +448,7 @@ async def transcription(
         repetition_penalty=repetition_penalty,
         vad_options=vad_options,
     )
-
+    print("response_format = {}".format(response_format))
     # special function for streaming response (OpenAI API does not have this)
     if response_format == "stream":
         return StreamingResponse(
